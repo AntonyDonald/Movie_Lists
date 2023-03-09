@@ -7,18 +7,29 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Header from './components/Header';
 import "./assets/styles/myStyle.css"
+import { useState } from 'react';
 
 function App() {
+
+  const [showLoginToast , setShowLoginToast] = useState(false)
+  const [showLogoutToast , setShowLogoutToast] = useState(false)
+
   return (
     <div className="App">
-      <Header />
-      <Router>
+      <Router>        
+        <Header 
+          setShowLogoutToast={setShowLogoutToast}
+        />
         <Routes>
           <Route 
             path="/"
             element={
               <PublicRouting>
-                <Login />
+                <Login 
+                  setShowLoginToast = {setShowLoginToast}
+                  showLogoutToast={showLogoutToast}
+                  setShowLogoutToast={setShowLogoutToast}
+                />
               </PublicRouting>
             }
           />
@@ -26,7 +37,10 @@ function App() {
             path="home/"
             element={
               <PrivateRouting>
-                <Home />
+                <Home                    
+                   showLoginToast = {showLoginToast}
+                   setShowLoginToast = {setShowLoginToast}
+                />
               </PrivateRouting>
             }
           />

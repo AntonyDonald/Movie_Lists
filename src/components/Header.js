@@ -2,10 +2,19 @@ import React from 'react'
 import { Row, Col } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FaSearch } from 'react-icons/fa'
+import { useNavigate, useNavigation } from 'react-router';
 
-const Header = () => {
+const Header = ({setShowLogoutToast}) => {
 
     const isValidUser = JSON.parse(localStorage.getItem("tokenId"));
+
+    const history = useNavigate()
+
+    const handleLogout = () =>{
+        localStorage.removeItem("tokenId");
+        setShowLogoutToast(true)
+        history("/")
+    }
 
     return (
         <div className='HeaderView'>
@@ -26,7 +35,7 @@ const Header = () => {
                                 </InputGroup>
                             </div>
                             <div>
-                                <span className='text-white' style={{ fontSize: '20px' }}>Log Out</span>
+                                <span onClick={handleLogout} className='text-white fw-bold' style={{ fontSize: '20px' }}>Log Out</span>
                             </div>
 
                         </div>
